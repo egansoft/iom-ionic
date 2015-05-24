@@ -32,13 +32,14 @@ angular.module('starter', ['ionic', 'starter.controllers'])
 
 	.state('app.main', {
 		url: "/main",
+		controller: 'MainCtrl',
 		views: {
 			'menuContent': {
-				templateUrl: "templates/main.html",
-				controller: 'MainCtrl'
+				templateUrl: "templates/main.html"
 			}
 		}
 	})
+
 
 	// if none of the above states are matched, use this as the fallback
 	$urlRouterProvider.otherwise('/app/main');
