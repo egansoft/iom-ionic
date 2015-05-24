@@ -27,22 +27,12 @@ angular.module('starter.controllers', [])
 
 		// Simulate a login delay. Remove this and replace with your login
 		// code if using a login system
-		$timeout(function() {
-			$scope.closeLogin();
-		}, 1000);
+		// $timeout(function() {
+		// 	$scope.closeLogin();
+		// }, 1000);
 	};
 })
 
-.controller('PlaylistsCtrl', function($scope) {
-	$scope.playlists = [
-		{ title: 'Reggae', id: 1 },
-		{ title: 'Chill', id: 2 },
-		{ title: 'Dubstep', id: 3 },
-		{ title: 'Indie', id: 4 },
-		{ title: 'Rap', id: 5 },
-		{ title: 'Cowbell', id: 6 }
-	];
+.controller('MainCtrl', function($scope) {
+    
 })
-
-.controller('PlaylistCtrl', function($scope, $stateParams) {
-});
