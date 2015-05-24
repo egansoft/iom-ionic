@@ -34,32 +34,32 @@ angular.module('starter.controllers', [])
 })
 
 .controller('MainCtrl', function($scope) {
+    var started = false
+    $scope.buttonText = "Start"
+    var accelData = []
+
 	$scope.toggleAccel = function() {
-		console.log("toggled");
+        started = !started
 
-		this.track = function() {
-        this.watchId = navigator.accelerometer.watchAcceleration(function(acceleration) {
+        if(started) {
+            $scope.buttonText = "Stop"
 
-						// log out the accel data points
-						console.log("X:" + acceleration.x + "\tY:" + acceleration.y + "\tZ:" + acceleration.x);
+            this.watchId = navigator.accelerometer.watchAcceleration(function(acceleration) {
+    			// log out the accel data points
+    			console.log("X:" + acceleration.x + "\tY:" + acceleration.y + "\tZ:" + acceleration.z)
 
-						// need to have some sort of completion case
-            if(false)
-                parent.finish()
+                accelData.push({x:acceleration.x, y:acceleration.y, z:acceleration.z, t:Date.now()%1000000})
 
-        }, function(){
-            console.log('error')
-        }, {
-            frequency: 40
-        })
+            }, function(){
+                console.log('error')
+            }, {
+                frequency: 40
+            })
+        } else {
+            $scope.buttonText = "Start"
 
-        this.finish = function() {
-            console.log(this.timer)
-            navigator.accelerometer.clearWatch(parent.watchId)
-
-            $rootScope.finishTest('gravityball', this.timer)
+            navigator.accelerometer.clearWatch(this.watchId);
         }
-    }
 
 	}
 })
