@@ -1,9 +1,17 @@
 <ion-view view-title="IoM">
 	<ion-content ng-controller="MainCtrl" >
-		<h1>Internet of Mice</h1>
-			<button class="button button-positive" ng-click="toggleAccel()">
-		  		{{buttonText}}
+		<button class="button button-positive start-btn" ng-click="toggleAccel()">
+	  		{{buttonText}}
+		</button>
+
+		<div class="clicker-container">
+			<button class="button button-positive left-btn" ng-click="clicker(0)">
+		  		Left
 			</button>
+			<button class="button button-positive right-btn" ng-click="clicker(1)">
+		  		Right
+			</button>
+		</div>
 
 	</ion-content>
 </ion-view>

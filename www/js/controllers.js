@@ -37,6 +37,14 @@ angular.module('starter.controllers', [])
     var started = false
     $scope.buttonText = "Start"
     var accelData = []
+    var uploading = false
+    var name
+
+    var leftClicked = false, rightClicked = false
+
+    // Send up device data to Firebase
+    var initRef = new Firebase("https://internet-of-mice.firebaseio.com/devices")
+    var deviceRef = initRef.push({id: (new Date()).getTime() % 1000000, receiving: false}).child('accelData')
 
 	$scope.toggleAccel = function() {
         started = !started
@@ -48,7 +56,26 @@ angular.module('starter.controllers', [])
     			// log out the accel data points
     			console.log("X:" + acceleration.x + "\tY:" + acceleration.y + "\tZ:" + acceleration.z)
 
-                accelData.push({x:acceleration.x, y:acceleration.y, z:acceleration.z, t:Date.now()%1000000})
+                // load button clicks
+                var b = 0
+                if(leftClicked)
+                    b = 1
+                if(rightClicked)
+                    b = 2
+                    
+                leftClicked = false
+                rightClicked = false
+
+                accelData.push({x:acceleration.x, y:acceleration.y, z:acceleration.z, t:Date.now() % 1000000, b:b})
+
+                if(!uploading) {
+                    uploading = true
+
+                    deviceRef.push(accelData, function() {
+                        uploading = false
+                        accelData = []
+                    })
+                }
 
             }, function(){
                 console.log('error')
@@ -62,4 +89,11 @@ angular.module('starter.controllers', [])
         }
 
 	}
+
+    $scope.clicker = function(b) {
+        if(b === 0)
+            leftClicked = true
+        else
+            rightClicked = true
+    }
 })

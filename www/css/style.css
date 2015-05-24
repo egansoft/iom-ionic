@@ -1,1 +1,18 @@
 /* Empty. Add your own CSS if you like */
+
+.start-btn {
+	width:100%;
+	margin:1%;
+}
+
+.clicker-container {
+	width:100%;
+	margin-top:20px;
+}
+
+.left-btn, .right-btn {
+	width:48%;
+	margin:1%;
+	height:300px;
+	float:left;
+}
